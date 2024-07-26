@@ -7,36 +7,34 @@ jobs:
       - name: Preparation
         run: | 
           df -h
-          docker rmi `docker images -q`
-          df -h
+          docker rmi `docker images -q` # 3G
           sudo timedatectl set-timezone "Asia/Shanghai"
-          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-          df -h
-          sudo apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap*
-          df -h
+          sudo rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android # 11G
+          sudo apt -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* snap* # 4G
           sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev tree
-          df -h
           sudo systemctl daemon-reload
           git clone -b master https://github.com/coolsnowwolf/lede.git build
           wget https://raw.githubusercontent.com/scorpiofifth/GitHub_Actions_Demo/master/.config -O ./build/.config
-          df -h
           # pwd - /home/runner/work/GitHub_Actions_Demo/GitHub_Actions_Demo
-          # tree - build
       - name: Compile
-        working-directory: ./build
         run: | 
+          mkdir output
+          cd build
           ./scripts/feeds update -a 
           ./scripts/feeds install -a
-          df -h
           make defconfig
           make download -j16
+          df -h
           make -j$(nproc) || make -j1 V=s
-          tree ./bin/targets/
-          rm -rf $(find ./bin/targets/ -type d -name "packages")
+          df -h
+          rm -rf ./bin/targets/packages
+          cp -f ./bin/targets/*/*/* ../output/
+          cp -f .config ../output/config
+          cd ../output 
       - name: Upload
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: OpenWrt_firmware
-          path: ./bin/targets/
+          name: Output
+          path: output
 
 
