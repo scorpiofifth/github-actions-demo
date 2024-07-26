@@ -18,7 +18,7 @@ jobs:
           df -h
           sudo systemctl daemon-reload
           git clone -b master https://github.com/coolsnowwolf/lede.git build
-          wget https://raw.githubusercontent.com/scorpiofifth/GitHub_Actions_Demo/master/.config build/.config
+          wget https://raw.githubusercontent.com/scorpiofifth/GitHub_Actions_Demo/master/.config -O ./build/.config
           df -h
           # pwd - /home/runner/work/GitHub_Actions_Demo/GitHub_Actions_Demo
           # tree - build
