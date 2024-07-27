@@ -7,8 +7,8 @@ jobs:
       - name: Preparation
         run: | 
           sudo apt install tree -y
-          mkdir test
-          cd test
+          mkdir -p test/bin/targets/a/b/
+          cd test/bin/targets/a/b/
           echo "hello" > README.md
           mkdir new_dir
           touch new_dir/a new_dir/b new_dir/c
@@ -17,4 +17,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Output
-          path: test
+          path: test/bin/targets/*/*/
