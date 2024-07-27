@@ -20,8 +20,8 @@ jobs:
           ./scripts/feeds update -a 
           ./scripts/feeds install -a
           # OpenClash Install 
-          git clone -b master https://github.com/vernesong/OpenClash.git package/luci-app-openclash
-          echo "CONFIG_PACKAGE_luci-app-openclash=y" >> ./build/.config
+          # git clone -b master https://github.com/vernesong/OpenClash.git package/luci-app-openclash
+          # echo "CONFIG_PACKAGE_luci-app-openclash=y" >> ./build/.config
           make defconfig
           make download -j16
           make -j$(nproc) || make -j1 V=s
