@@ -18,23 +18,19 @@ jobs:
           # pwd - /home/runner/work/GitHub_Actions_Demo/GitHub_Actions_Demo
       - name: Compile
         run: | 
-          mkdir output
           cd build
           ./scripts/feeds update -a 
           ./scripts/feeds install -a
           make defconfig
           make download -j16
-          df -h
           make -j$(nproc) || make -j1 V=s
           df -h
           rm -rf ./bin/targets/packages
-          cp -f ./bin/targets/*/*/* ../output/
-          cp -f .config ../output/config
-          cd ../output 
+          tree ~
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: Output
-          path: output
+          path:  build/bin/targets/rockchip/armv8/openwrt-rockchip-armv8-hinlink_opc-h68k-squashfs-sysupgrade.img.gz
 
 
