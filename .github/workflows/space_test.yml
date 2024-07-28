@@ -1,0 +1,27 @@
+name: Space Test
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Initialization environment
+        run: |
+          df -h
+          docker rmi $(docker images -q) 2>/dev/null
+          df -h
+          sudo rm -rf "${AGENT_TOOLSDIRECTORY}"
+          df -h
+          sudo rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android 2>/dev/null
+          df -h
+          sudo swapoff -a
+          df -h
+          sudo rm -f /swapfile /mnt/swapfile
+          df -h
+          sudo apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* moby* snap*
+          df -h
+          sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+          df -h
+          sudo rm -rf ~/{.cargo,.dotnet,.rustup}
+          df -h
+          git clone -b master https://github.com/vernesong/OpenClash.git
+          df -h
