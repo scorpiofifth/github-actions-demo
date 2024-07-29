@@ -12,9 +12,11 @@ jobs:
           echo "hello" > README.md
           mkdir new_dir
           touch new_dir/a new_dir/b new_dir/c
-          tree .
+          tree ../../../../../
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: Output
-          path: test/bin/targets/*/*/
+          path: | 
+            test/bin/targets/*/*/*.md
+            test/bin/targets/*/*/new_dir
