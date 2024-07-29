@@ -16,6 +16,7 @@ jobs:
           wget https://raw.githubusercontent.com/scorpiofifth/GitHub_Actions_Demo/master/OpenWrt_Config_File -O ./build/.config
       - name: Compile
         run: | 
+          mkdir output
           cd build
           ./scripts/feeds update -a 
           ./scripts/feeds install -a
@@ -26,11 +27,12 @@ jobs:
           make download -j16
           make -j$(nproc) || make -j1 V=s
           rm -rf ./bin/targets/*/*/packages
+          cp bin/targets/*/*/* ../output
           tree ~
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: OpenWrt
-          path: build/bin/targets/
+          path: output
 
 
