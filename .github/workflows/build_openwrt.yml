@@ -37,7 +37,6 @@ jobs:
           chmod 777 clash
       - name: Compile
         run: | 
-          tree files
           mkdir output
           cd build
           ./scripts/feeds update -a 
