@@ -4,7 +4,7 @@ on:
   push:
     paths: 
       - OpenWrt_Config_File
-      - OpenWrt_File
+      - OpenWrt_File/**
 jobs:
   build: 
     runs-on: ubuntu-22.04
