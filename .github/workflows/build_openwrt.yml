@@ -36,10 +36,14 @@ jobs:
       - name: OpenClash Core Download
         run: | 
           mkdir -p build/files/etc/openclash/core/
-          cd build/files/etc/openclash/core/
-          wget https://github.com/vernesong/OpenClash/releases/download/Clash/clash-linux-armv8.tar.gz
-          tar -zxf clash-linux-armv8.tar.gz && rm -f clash-linux-armv8.tar.gz
+          wget https://raw.githubusercontent.com/vernesong/OpenClash/core/master/dev/clash-linux-arm64.tar.gz
+          tar -zxf clash-linux-arm64.tar.gz && rm -f clash-linux-arm64.tar.gz
           chmod 777 clash
+          mv clash build/files/etc/openclash/core/clash
+          wget https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-arm64.tar.gz
+          tar -zxf clash-linux-arm64.tar.gz && rm -f clash-linux-arm64.tar.gz
+          chmod 777 clash
+          mv clash build/files/etc/openclash/core/clash_meta
       - name: Compile
         run: | 
           mkdir output
