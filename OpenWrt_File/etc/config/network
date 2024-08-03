@@ -15,10 +15,15 @@ config interface 'lan'
 	option netmask '255.255.255.0'
 	option ifname 'eth1 eth2 eth3'
 	option ipaddr '192.168.100.1'
+	option ip6assign '60'
 
 config device 'lan_eth0_dev'
 	option name 'eth0'
 	option macaddr 'f2:12:4a:e0:ca:9b'
+
+config device 'wan_eth1_dev'
+	option name 'eth1'
+	option macaddr 'f2:12:4a:e0:ca:9a'
 
 config device 'lan_eth2_dev'
 	option name 'eth2'
@@ -32,7 +37,6 @@ config interface 'wan'
 	option proto 'dhcp'
 	option ifname 'eth0'
 
-config device 'wan_eth1_dev'
-	option name 'eth1'
-	option macaddr 'f2:12:4a:e0:ca:9a'
-
+config interface 'wan6'
+	option proto 'dhcpv6'
+	option ifname 'eth0'
