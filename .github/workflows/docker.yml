@@ -1,0 +1,19 @@
+name: Docker
+on: workflow_dispatch
+jobs:
+  build: 
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Prepare
+        run: | 
+          sudo apt update
+          mkdir output
+          docker pull --platform arm64 neosmemo/memos:stable
+          docker pull --platform arm64 xhofe/alist:latest-ffmpeg
+          docker save neosmemo/memos > output/memos.tar
+          docker save xhofe/alist > output/alist.tar
+      - name: Upload config file
+        uses: actions/upload-artifact@v4
+        with:
+          name: config
+          path: output
