@@ -36,5 +36,6 @@ jobs:
           docker save sec77/perlite > output/perlite.tar
       - name: Release
         uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
         with:
           files: output/*
