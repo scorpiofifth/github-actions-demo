@@ -34,8 +34,7 @@ jobs:
 
           docker pull --platform arm64 sec77/perlite:latest
           docker save sec77/perlite > output/perlite.tar
-      - name: Upload
-        uses: actions/upload-artifact@v4
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          name: docker
-          path: output
+          files: output/*
