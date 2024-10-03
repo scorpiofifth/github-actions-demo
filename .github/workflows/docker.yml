@@ -23,17 +23,17 @@ jobs:
           docker pull --platform arm64 neosmemo/memos:stable
           docker save neosmemo/memos > output/memos.tar
 
-          # docker pull --platform arm64 xhofe/alist:latest-ffmpeg
-          # docker save xhofe/alist > output/alist.tar
+          docker pull --platform arm64 xhofe/alist:latest-ffmpeg
+          docker save xhofe/alist > output/alist.tar
 
-          # docker pull --platform arm64 linuxserver/librespeed:latest
-          # docker save linuxserver/librespeed > output/librespeed.tar
+          docker pull --platform arm64 linuxserver/librespeed:latest
+          docker save linuxserver/librespeed > output/librespeed.tar
 
-          # docker pull --platform arm64 corentinth/it-tools:latest
-          # docker save corentinth/it-tools > output/it-tools.tar
+          docker pull --platform arm64 corentinth/it-tools:latest
+          docker save corentinth/it-tools > output/it-tools.tar
 
-          # docker pull --platform arm64 sec77/perlite:latest
-          # docker save sec77/perlite > output/perlite.tar
+          docker pull --platform arm64 sec77/perlite:latest
+          docker save sec77/perlite > output/perlite.tar
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
