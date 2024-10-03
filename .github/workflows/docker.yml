@@ -4,16 +4,38 @@ jobs:
   build: 
     runs-on: ubuntu-22.04
     steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 2048
+          temp-reserve-mb: 1
+          swap-size-mb: 1
+          remove-dotnet: true
+          remove-android: true
+          remove-haskell: true
+          remove-codeql: true
+          remove-docker-images: true
       - name: Prepare
         run: | 
           sudo apt update
           mkdir output
+
           docker pull --platform arm64 neosmemo/memos:stable
-          docker pull --platform arm64 xhofe/alist:latest-ffmpeg
           docker save neosmemo/memos > output/memos.tar
+
+          docker pull --platform arm64 xhofe/alist:latest-ffmpeg
           docker save xhofe/alist > output/alist.tar
-      - name: Upload config file
+
+          docker pull --platform arm64 linuxserver/librespeed:latest
+          docker save linuxserver/librespeed > output/librespeed.tar
+
+          docker pull --platform arm64 corentinth/it-tools:latest
+          docker save corentinth/it-tools > output/it-tools.tar
+
+          docker pull --platform arm64 sec77/perlite:latest
+          docker save sec77/perlite > output/perlite.tar
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
-          name: config
+          name: docker
           path: output
