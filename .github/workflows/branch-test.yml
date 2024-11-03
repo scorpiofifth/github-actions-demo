@@ -1,0 +1,12 @@
+name: Branch Test
+on: workflow_dispatch
+jobs:
+  build: 
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Prepare
+        run: | 
+          sudo apt update && sudo apt install tree
+          tree .
